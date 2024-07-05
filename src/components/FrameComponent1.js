@@ -395,19 +395,19 @@ const FrameComponent1 = ({ className = "" }) => {
               </div>
             </div>
           </div>
-          </div>
-      <div className="w-[1387px] flex flex-row items-start justify-center py-0 pr-[25px] pl-5 box-border max-w-full text-xl text-homeaccrediancom-nero font-source-sans-pro">
-        <button
-          className="w-[236px] rounded-lg bg-homeaccrediancom-royal-blue flex flex-row items-start justify-start py-5 px-[72px] box-border whitespace-nowrap z-[1] transition duration-300 hover:bg-blue-700 cursor-pointer"
-          onClick={handleOpenModal}
-        >
-          <div className="flex-1 relative leading-[24px] inline-block min-w-[88px] font-source-sans-pro font-normal text-white text-lg flex items-center justify-center">
-            Refer Now
-          </div>
-        </button>
+        </div>
+        <div className="w-[1387px] flex flex-row items-start justify-center py-0 pr-[25px] pl-5 box-border max-w-full text-xl text-homeaccrediancom-nero font-source-sans-pro">
+          <button
+            className="w-[236px] rounded-lg bg-homeaccrediancom-royal-blue flex flex-row items-start justify-start py-5 px-[72px] box-border whitespace-nowrap z-[1] transition duration-300 hover:bg-blue-700 cursor-pointer"
+            onClick={handleOpenModal}
+          >
+            <div className="flex-1 relative leading-[24px] inline-block min-w-[88px] font-source-sans-pro font-normal text-white text-lg flex items-center justify-center">
+              Refer Now
+            </div>
+          </button>
+        </div>
+        {isModalOpen && <ReferralForm onClose={handleCloseModal} />}
       </div>
-      {isModalOpen && <ReferralForm onClose={handleCloseModal} />}
-    </div>
     </div>
   );
 };

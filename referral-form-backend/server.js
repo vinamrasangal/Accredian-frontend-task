@@ -9,6 +9,16 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// Nodemailer transporter setup
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
+  },
+});
+
+// API endpoint for handling referrals
 app.post('/api/referrals', async (req, res) => {
   const { referrerName, referrerEmail, refereeName, refereeEmail } = req.body;
 
@@ -17,6 +27,7 @@ app.post('/api/referrals', async (req, res) => {
   }
 
   try {
+    // Save referral to database
     const referral = await prisma.referral.create({
       data: {
         referrerName,
@@ -26,14 +37,7 @@ app.post('/api/referrals', async (req, res) => {
       },
     });
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
-      },
-    });
-
+    // Send referral email
     const mailOptions = {
       from: process.env.GMAIL_USER,
       to: refereeEmail,
@@ -43,11 +47,9 @@ app.post('/api/referrals', async (req, res) => {
 
     await transporter.sendMail(mailOptions);
 
-    console.log('Referral saved successfully:', referral);
-
     res.status(201).json(referral);
   } catch (error) {
-    console.error('Error saving referral:', error);
+    console.error(error);
     res.status(500).json({ error: 'Internal server error.' });
   }
 });

@@ -1,44 +1,38 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import axios from "axios"; // Import axios for making HTTP requests
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
 
 const ReferralForm = ({ onClose }) => {
-  const [referrerName, setReferrerName] = useState("");
-  const [referrerEmail, setReferrerEmail] = useState("");
-  const [refereeName, setRefereeName] = useState("");
-  const [refereeEmail, setRefereeEmail] = useState("");
+  const [referrerName, setReferrerName] = useState('');
+  const [referrerEmail, setReferrerEmail] = useState('');
+  const [refereeName, setRefereeName] = useState('');
+  const [refereeEmail, setRefereeEmail] = useState('');
   const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
 
-    if (!referrerName) newErrors.referrerName = "Referrer name is required";
-    if (!referrerEmail) newErrors.referrerEmail = "Referrer email is required";
-    if (!refereeName) newErrors.refereeName = "Referee name is required";
-    if (!refereeEmail) newErrors.refereeEmail = "Referee email is required";
+    if (!referrerName) newErrors.referrerName = 'Referrer name is required';
+    if (!referrerEmail) newErrors.referrerEmail = 'Referrer email is required';
+    if (!refereeName) newErrors.refereeName = 'Referee name is required';
+    if (!refereeEmail) newErrors.refereeEmail = 'Referee email is required';
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
       try {
-        // Make HTTP POST request to backend API
-        const response = await axios.post("/api/referrals", {
+        const response = await axios.post('/api/referrals', {
           referrerName,
           referrerEmail,
           refereeName,
           refereeEmail,
         });
 
-        console.log("Referral submitted:", response.data);
-
-        // Optionally, you can handle success here (e.g., show success message)
-
+        console.log('Referral submitted:', response.data);
         onClose(); // Close the form after successful submission
       } catch (error) {
-        console.error("Error submitting referral:", error);
-
-        // Optionally, you can handle errors here (e.g., show error message)
+        console.error('Error submitting referral:', error);
       }
     }
   };
@@ -100,13 +94,13 @@ const ReferralForm = ({ onClose }) => {
             <button
               type="button"
               onClick={onClose}
-              className="bg-gray-400 text-white rounded-lg py-2 px-4"
+              className="bg-gray-400 text-white rounded-lg py-2 px-4 hover:bg-gray-500"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-blue-600 text-white rounded-lg py-2 px-4"
+              className="bg-blue-600 text-white rounded-lg py-2 px-4 hover:bg-blue-700"
             >
               Submit
             </button>
